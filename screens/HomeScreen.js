@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { View, FlatList, Button, Text } from "react-native";
+import { View, FlatList, Button } from "react-native";
 import { collection, onSnapshot, query, orderBy } from "firebase/firestore";
 import { db } from "../firebase";
+import PostCard from "../components/PostCard";
 
 export default function HomeScreen({ navigation }) {
   const [posts, setPosts] = useState([]);
@@ -19,12 +20,7 @@ export default function HomeScreen({ navigation }) {
       <FlatList
         data={posts}
         keyExtractor={i => i.id}
-        renderItem={({ item }) => (
-          <View style={{ padding: 10 }}>
-            <Text>{item.user}</Text>
-            <Text>{item.text}</Text>
-          </View>
-        )}
+        renderItem={({ item }) => <PostCard post={item} />}
       />
     </View>
   );
